@@ -1,6 +1,6 @@
 // Inicializar EmailJS con tu Public Key
 (function() {
-    // emailjs.init removido
+    emailjs.init('RRR4M2sCr-NgEf8ul');
 })();
 
 // Variables globales para control de elementos flotantes
@@ -412,7 +412,15 @@ function criarDadosJSON(name, email, phone, message) {
 }
 
 async function enviarComEmailJS(name, email, phone, textoPlano, dadosJSON) {
-    return n8nIntegration.sendLead(formData).catch(console.error);
+    return emailjs.send('service_42rjl6k', 'template_iszllup', {
+        from_name: name,
+        from_email: email,
+        from_phone: phone,
+        message: textoPlano,
+        reply_to: email,
+        subject: `[WOMO] Contato: ${name}`,
+        dados_json: JSON.stringify(dadosJSON, null, 2)
+    });
 }
 
 async function enviarComFormSubmit(name, email, phone, message, metadata) {
@@ -979,7 +987,17 @@ Data: ${new Date().toLocaleString()}
         }
     };
 
-    n8nIntegration.sendLead(formData).catch(console.error);
+    emailjs.send('service_42rjl6k', 'template_iszllup', {
+        from_name: data.nome || 'Usuário Chatbot',
+        from_email: data.email || 'no-email@chatbot.com',
+        from_phone: data.telefone || '',
+        message: textoPlano,
+        reply_to: data.email || 'womostd@gmail.com',
+        subject: `[WOMO] Lead Chatbot: ${formType} - ${data.nome || 'Anônimo'}`,
+        dados_json: JSON.stringify(dadosJSON, null, 2)
+    })
+    .then(response => {
+        console.log('Email enviado!', response.status, response.text);
     })
     .catch(error => {
         console.error('Erro ao enviar:', error);

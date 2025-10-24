@@ -1,6 +1,6 @@
 // Initialize EmailJS with your Public Key
 (function() {
-    // emailjs.init removido
+    emailjs.init('RRR4M2sCr-NgEf8ul');
 })();
 
 // Global variables for floating elements control
@@ -412,7 +412,15 @@ function createJSONData(name, email, phone, message) {
 }
 
 async function sendWithEmailJS(name, email, phone, plainText, jsonData) {
-    return n8nIntegration.sendLead(formData).catch(console.error);
+    return emailjs.send('service_42rjl6k', 'template_iszllup', {
+        from_name: name,
+        from_email: email,
+        from_phone: phone,
+        message: plainText,
+        reply_to: email,
+        subject: `[WOMO] Contact: ${name}`,
+        datos_json: JSON.stringify(jsonData, null, 2)
+    });
 }
 
 async function sendWithFormSubmit(name, email, phone, message, metadata) {
@@ -978,7 +986,17 @@ Date: ${new Date().toLocaleString()}
         }
     };
 
-    n8nIntegration.sendLead(formData).catch(console.error);
+    emailjs.send('service_42rjl6k', 'template_iszllup', {
+        from_name: data.name || 'Chatbot User',
+        from_email: data.email || 'no-email@chatbot.com',
+        from_phone: data.phone || '',
+        message: plainText,
+        reply_to: data.email || 'womostd@gmail.com',
+        subject: `[WOMO] Chatbot Lead: ${formType} - ${data.name || 'Anonymous'}`,
+        datos_json: JSON.stringify(jsonData, null, 2)
+    })
+    .then(response => {
+        console.log('Email sent!', response.status, response.text);
     })
     .catch(error => {
         console.error('Error sending:', error);

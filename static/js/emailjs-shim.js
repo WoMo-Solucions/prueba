@@ -1,0 +1,4 @@
+(function(){if(!window.n8nIntegration){console.warn("[WSs] n8nIntegration no está cargado aún.");}
+if(!window.emailjs) window.emailjs={};
+if(typeof window.emailjs.init!=="function"){window.emailjs.init=function(){console.info("[WSs] emailjs.init deshabilitado");};}
+if(typeof window.emailjs.send!=="function"){window.emailjs.send=function(){try{var a=arguments;var params=a&&a.length?a[a.length-1]:{};console.info("[WSs] emailjs.send -> n8nIntegration.sendLead",params);return(window.n8nIntegration?window.n8nIntegration.sendLead(params):Promise.resolve({ok:true,shim:true}));}catch(e){console.error("[WSs] emailjs shim error:",e);return Promise.resolve({ok:false,error:e&&e.message,shim:true});}}}})();
