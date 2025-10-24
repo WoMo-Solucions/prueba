@@ -1,0 +1,32 @@
+[
+  {
+    "key": "automatizacion",
+    "name": "Automatización (n8n)",
+    "desc": "Flujos verificados, alertas y tareas automáticas."
+  },
+  {
+    "key": "integraciones",
+    "name": "Integraciones (APIs/Supabase)",
+    "desc": "APIs seguras, RLS y auditoría."
+  },
+  {
+    "key": "web",
+    "name": "Sitios y Apps Web",
+    "desc": "Diseño modular, SEO y performance real."
+  },
+  {
+    "key": "chatbot",
+    "name": "Chatbot de Ventas",
+    "desc": "Intención, cotización guiada y handoff a humano."
+  },
+  {
+    "key": "reportes",
+    "name": "Reportes y Paneles",
+    "desc": "KPIs de negocio, embudos y exportables."
+  },
+  {
+    "key": "pagos",
+    "name": "Pagos (próxima fase)",
+    "desc": "Stripe/Wompi/PayPal en repo separado."
+  }
+]

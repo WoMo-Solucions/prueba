@@ -1,0 +1,35 @@
+{
+  "nombre": "PCAF",
+  "descripcion_corta": "Sistema de gestión para pequeños centros de acondicionamiento físico.",
+  "descripcion": "Plataforma tecnológica diseñada para optimizar los procesos en gimnasios independientes. Digitaliza el seguimiento de rutinas, registros antropométricos y progreso de usuarios. Incluye módulos para entrenadores y clientes con funcionalidades de personalización y reportes."
+}
+
+{
+  "nombre": "Unistock",
+  "descripcion_corta": "Sistema propietario de gestión de inventarios y recursos.",
+  "descripcion": "Solución completa para control avanzado de stock, proveedores y compras. Ofrece módulos integrados para reportes ejecutivos, análisis de datos y seguridad por roles. Diseñado con arquitectura escalable en Python/PostgreSQL para entornos empresariales."
+}
+
+{
+  "nombre": "ProTrack",
+  "descripcion_corta": "Plataforma modular universal de gestión de procesos.",
+  "descripcion": "Sistema flexible para gestionar ciclos completos de procesos productivos o de servicio. Incluye identificación inteligente (cédulas, placas, QR), flujos de trabajo configurables y analítica avanzada. Adaptable a talleres mecánicos, desarrollo de software y servicios generales."
+}
+
+{
+  "nombre": "Messungen",
+  "descripcion_corta": "Sistema de seguimiento del progreso físico.",
+  "descripcion": "Plataforma para profesionales del fitness que automatiza el registro de mediciones físicas y progreso de clientes. Ofrece módulos para antropometría, estadísticas y acceso mediante QR. Diseñado para instructores y centros de entrenamiento."
+}
+
+{
+  "nombre": "PocketFlow",
+  "descripcion_corta": "Sistema de gestión financiera personal inteligente.",
+  "descripcion": "Aplicación que combina registro financiero con análisis predictivo y planificación estratégica. Detecta patrones de gasto, genera alertas preventivas y ofrece herramientas educativas para mejorar hábitos económicos."
+}
+
+{
+  "nombre": "Gatekeeper",
+  "descripcion_corta": "Sistema de control de acceso para software.",
+  "descripcion": "Solución para gestionar credenciales de acceso a proyectos tecnológicos. Permite configuración flexible de períodos de prueba, límites de usuarios y notificaciones automáticas. Compatible con modelos individuales, grupales y empresariales."
+}

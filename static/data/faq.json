@@ -1,0 +1,17 @@
+[
+  {
+    "q": "¿Cómo es la implementación?",
+    "a": "Trabajamos por fases: descubrimiento, propuesta, desarrollo y entrega.",
+    "rx": "implementa|implementación|fases|metodolog"
+  },
+  {
+    "q": "¿Ofrecen soporte?",
+    "a": "Sí, planes de soporte y evolución continua.",
+    "rx": "soporte|mantenimiento|garant"
+  },
+  {
+    "q": "¿Cómo integran con mis sistemas?",
+    "a": "Usamos APIs y n8n. Definimos contratos y pruebas end-to-end.",
+    "rx": "integra|integraci|api|sistema"
+  }
+]

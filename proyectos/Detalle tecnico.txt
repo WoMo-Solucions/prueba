@@ -1,0 +1,55 @@
+🎨 4. Identidad Visual (Reinventada para Servicios Digitales)
+Elemento	Propuesta Mejorada
+Paleta de Colores	Azul Tecnológico (#2A5BFF) + Gris Profesional (#3A3A3A) + Blanco Neutro
+Tipografía	Títulos: Rubik Bold (moderno/tecnológico) – Texto: Inter Regular (legible/limpio)
+Estilo Gráfico	Ilustraciones de procesos digitales (flujos de trabajo colaborativos, equipos usando dashboards, integraciones entre sistemas).
+Íconos Clave	🤖 (automatización), 🔄 (procesos), 🛠️ (implementación), 📱 (digital), 👥 (servicio personalizado).
+Tono de Comunicación	Experto + cercano:
+"No solo desarrollamos software: te acompañamos en cada paso de tu transformación digital."
+
+"Automatizamos lo repetitivo para que focuses en crecer."
+
+🧰 5. Portafolio (Reenfocado en Servicios, Sin Cambiar Nombres)
+Título de Sección: "Servicios Tecnológicos con Resultados"
+
+Solución	Descripción (Enfoque en Servicio)	Detalle Técnico (al hacer clic)
+ProTrack	"Diseñamos e implementamos sistemas de gestión de procesos adaptados a tus necesidades, con capacitación y soporte continuo."	Tecnología: Plataforma modular, integrable con tus herramientas actuales, reporting en tiempo real.
+Unistock	"Desarrollamos software de gestión de inventarios + acompañamiento para optimizar tu cadena de suministro."	Features: Alertas inteligentes, análisis de rotación, multi-almacén.
+PortiFy	"CRM personalizado para gestionar portafolios tecnológicos, con integraciones a tu ecosistema."	Incluye: Automatización de seguimiento, dashboards estratégicos, API abierta.
+Key:
+
+Mismos nombres de soluciones, pero descripciones que destacan el servicio completo (no solo el producto).
+
+Detalles técnicos preservados, pero ahora como complemento (no como foco principal).
+
+✨ Elementos Adicionales para Coherencia
+Sección "Nuestro Método" (bajo el portafolio):
+
+text
+### ¿Cómo lo hacemos?  
+1. **Diagnóstico**: Analizamos tus procesos y desafíos.  
+2. **Diseño**: Prototipamos soluciones a tu medida.  
+3. **Implementación**: Desarrollamos + capacitamos a tu equipo.  
+4. **Soporte Continuo**: Mejoramos iterativamente.  
+Diseño: 4 tarjetas con íconos (🔍 ✏️ ⚙️ 🛟).
+
+Banner Principal (hero section):
+"Transformamos tus operaciones con servicios tecnológicos end-to-end: desde el código hasta la capacitación."
+
+Testimonios (opcional):
+"WoMo no solo nos entregó un sistema; nos ayudó a cambiar nuestra forma de trabajar." – [Cliente X, Industria].
+
+🌐 Adaptación para tu Web Actual
+Reemplaza la sección de portafolio con la tabla propuesta.
+
+Añade "Nuestro Método" después del portafolio.
+
+Actualiza el banner principal con el mensaje de servicios end-to-end.
+
+Resultado:
+
+Claridad total: WoMo = servicios tecnológicos especializados, no productos preempaquetados.
+
+Profesional + humano: Combina expertise técnico con enfoque en el cliente.
+
+Flexible: Mantienes tus nombres de soluciones y estructura web actual.
