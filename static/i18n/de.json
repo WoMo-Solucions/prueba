@@ -1,14 +1,1 @@
-{
-  "hero": {
-    "title": "Wir automatisieren und vernetzen Ihre Prozesse",
-    "subtitle": "n8n + Integrationen + Web + Berichte"
-  },
-  "services": {
-    "title": "Leistungen",
-    "automation": "Automatisierung (n8n)",
-    "integrations": "Integrationen (APIs/Supabase)",
-    "web": "Websites & Apps",
-    "chatbot": "Sales-Chatbot",
-    "reports": "Berichte & Dashboards"
-  }
-}
+{}
