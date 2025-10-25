@@ -1,12 +1,6 @@
-.chatbox{max-height:360px;overflow:auto;border:1px solid #eee;border-radius:12px;padding:10px;margin:10px 0;background:#fff}
-.msg{padding:8px 10px;border-radius:10px;margin:6px 0;line-height:1.35;white-space:pre-wrap;max-width:90%}
-.msg.bot{background:#F5F1F9}
-.msg.you{background:#E7F0FF;margin-left:auto}
-.chat-input{display:flex;gap:.5rem}.chat-input input{flex:1}
 .womi{position:fixed;right:18px;bottom:18px;z-index:9999;display:flex;gap:10px;align-items:flex-end}
 .womi-bubble{display:none;background:#fff;color:#111;padding:10px 12px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.18);max-width:240px;border:1px solid #eee}
-.womi-avatar{width:72px;height:72px;border-radius:50%;background:url('/img/WoMi1.webp') center/cover no-repeat;box-shadow:0 8px 24px rgba(0,0,0,.18);cursor:pointer;animation:floatY 3s ease-in-out infinite}
-@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.womi-avatar{width:72px;height:72px;border-radius:50%;background:url('static/img/womi.png') center/cover no-repeat;box-shadow:0 8px 24px rgba(0,0,0,.18);cursor:pointer}
 .womi-pop{position:fixed;right:104px;bottom:86px;width:320px;max-width:92vw;background:#fff;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.2);border:1px solid #e9e9ee;display:none;z-index:10000}
 .womi-head{background:#19a974;color:#fff;padding:10px 14px;border-radius:14px 14px 0 0;font-weight:700;display:flex;justify-content:space-between;align-items:center}
 .womi-body{padding:10px 12px}
@@ -16,5 +10,5 @@
 .womi-row{display:flex;justify-content:space-between;gap:8px;margin-top:10px}
 .womi-btn{background:#f2f3f7;border:1px solid #e4e6ef;border-radius:10px;padding:9px 12px;cursor:pointer}
 .womi-btn.primary{background:#19a974;color:#fff;border:none}
-.womi-x, .womi-back{cursor:pointer;font-weight:700}
+.womi-x,.womi-back{cursor:pointer;font-weight:700}
 .womi-step2{display:none}
