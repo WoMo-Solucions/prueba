@@ -1,20 +1,102 @@
-(function(){const css=`.womi{position:fixed;right:18px;bottom:18px;z-index:9999;display:flex;gap:10px;align-items:flex-end}
-.womi-bubble{display:none;background:#800080;color:#fff;padding:10px 12px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.18);max-width:260px}
-.womi-avatar{width:72px;height:72px;border-radius:50%;background:url('/img/WoMi1.webp') center/cover no-repeat;box-shadow:0 8px 24px rgba(0,0,0,.18);cursor:pointer;animation:floatY 3s ease-in-out infinite}
-@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}
-}.womi-modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:10000}
-.womi-card{background:#fff;width:min(680px,95vw);border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.25);padding:18px}
-.womi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin:10px 0}
-.womi-item{border:1px solid #eee;border-radius:12px;padding:10px;cursor:pointer}
-.womi-expl{background:#f8f7fb;border-radius:12px;padding:10px;border:1px dashed #d9c8e6;min-height:54px}
-.womi-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
-.btn{padding:10px 14px;border-radius:10px;border:none;cursor:pointer}.btn.primary{background:#800080;color:#fff}`;const s=document.createElement("style");s.textContent=css;document.head.appendChild(s);
-const root=document.createElement("div");root.className="womi";const bubble=document.createElement("div");bubble.className="womi-bubble";bubble.textContent="¿Te muestro cómo podemos ayudarte?";const avatar=document.createElement("div");avatar.className="womi-avatar";avatar.title="Asistente WoMi";root.appendChild(bubble);root.appendChild(avatar);document.body.appendChild(root);
-const modal=document.createElement("div");modal.className="womi-modal";modal.innerHTML=`<div class="womi-card"><h3 style="margin:0 0 8px">¿En qué te ayudo hoy?</h3><div class="womi-grid" id="womi-grid"></div><div class="womi-expl" id="womi-expl">Selecciona un servicio para ver cómo lo resolvemos.</div><div class="womi-actions"><button class="btn" id="womi-close">Cerrar</button><button class="btn primary" id="womi-cta">Quiero este servicio</button></div></div>`;document.body.appendChild(modal);
-let offerings=[];fetch("/static/data/offerings.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{offerings=d;renderGrid();});
-function renderGrid(){const grid=document.getElementById("womi-grid");if(!grid)return;grid.innerHTML="";offerings.forEach(o=>{const it=document.createElement("div");it.className="womi-item";it.dataset.k=o.key;it.textContent=o.name;it.onclick=()=>select(o.key);grid.appendChild(it);});}
-const EXPL={automatizacion:"Conectamos formularios, CRM y correos con n8n. Flujos verificables y alertas.",integraciones:"APIs y Supabase con RLS, auditoría y escalabilidad.",web:"Landing y apps modulares, SEO y performance real.",chatbot:"Chatbot guiado (sin bucles) con intención + handoff a humano por n8n.",reportes:"KPIs, embudos y exportables para decisiones.",pagos:"Submódulo/pasarela (Stripe/Wompi/PayPal) en repo aparte."};
-function select(k){modal.setAttribute("data-k",k);const x=document.getElementById("womi-expl");if(x)x.textContent=EXPL[k]||"Servicio seleccionado.";}
-let idle=null;function resetIdle(){clearTimeout(idle);idle=setTimeout(()=>bubble.style.display="block",35000);}["mousemove","keydown","scroll","touchstart"].forEach(ev=>document.addEventListener(ev,()=>{bubble.style.display="none";resetIdle();},{passive:true}));resetIdle();
-function open(){modal.style.display="flex";if(offerings[0])select(offerings[0].key);}function close(){modal.style.display="none";}avatar.onclick=open;bubble.onclick=open;modal.onclick=e=>{if(e.target===modal)close();};modal.querySelector("#womi-close").onclick=close;
-modal.querySelector("#womi-cta").onclick=async()=>{const k=modal.getAttribute("data-k")||"general";const name=prompt("Tu nombre:");const email=prompt("Tu correo:");const msg=prompt("Cuéntanos brevemente tu necesidad:");if(!name||!email)return alert("Faltan datos.");try{await n8nIntegration.sendLead({name,email,message:msg,interest:k});alert("¡Recibido! Te contactaremos en breve.");close();}catch(e){console.error(e);alert("No fue posible enviar tu mensaje.");}};})();
+
+(function(){
+  const IDLE_MS = 90*1000;
+  let idle=null;
+  function $(s,ctx=document){ return ctx.querySelector(s); }
+  function el(tag,cls,html){ const n=document.createElement(tag); if(cls) n.className=cls; if(html!=null) n.innerHTML=html; return n; }
+
+  function mountAssistant(){
+    const root=el('div','womi');
+    const bubble=el('div','womi-bubble','¿Necesitas ayuda para optimizar tus procesos?');
+    const avatar=el('div','womi-avatar'); avatar.title="Asistente WoMi";
+    root.appendChild(bubble); root.appendChild(avatar); document.body.appendChild(root);
+
+    const pop=el('div','womi-pop');
+    pop.innerHTML=`
+      <div class="womi-head">
+        <span>¿Qué problema necesitas resolver?</span>
+        <span class="womi-x">✕</span>
+      </div>
+      <div class="womi-body">
+        <div class="womi-step1">
+          <div class="womi-list" id="womi-list"></div>
+          <div class="womi-row">
+            <button class="womi-btn" id="womi-later">Ahora no, gracias</button>
+            <button class="womi-btn primary" id="womi-talk">Hablar con asesor</button>
+          </div>
+        </div>
+        <div class="womi-step2">
+          <div class="womi-back">← Volver</div>
+          <div id="womi-detail" style="margin-top:8px"></div>
+          <div class="womi-row">
+            <button class="womi-btn" id="womi-quote">Quiero una cotización</button>
+            <button class="womi-btn primary" id="womi-ask">Hacer una pregunta</button>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(pop);
+
+    const benes=[
+      {k:"procesos",t:"Procesos desorganizados",s:"Sistema modular de gestión"},
+      {k:"stock",t:"Stock no confiable",s:"Alertas automáticas de inventario"},
+      {k:"info",t:"Información fragmentada",s:"CRM visual para portafolios"},
+      {k:"registros",t:"Registros manuales",s:"Sistema integrado de control"},
+      {k:"mediciones",t:"Mediciones no sistematizadas",s:"Historial digitalizado"},
+      {k:"gastos",t:"Gastos no categorizados",s:"Control financiero personalizado"}
+    ];
+
+    const list=$("#womi-list",pop);
+    benes.forEach(b=>{
+      const card=el('div','womi-card', `<strong>• ${b.t}</strong><small>${b.s}</small>`);
+      card.addEventListener("click",()=>openStep2(b));
+      list.appendChild(card);
+    });
+
+    const step1=$('.womi-step1',pop);
+    const step2=$('.womi-step2',pop);
+    const detail=$("#womi-detail",pop);
+
+    function openStep1(){ step2.style.display="none"; step1.style.display="block"; }
+    function openStep2(b){
+      detail.innerHTML = `<h4 style="margin:4px 0">${b.t}</h4>
+      <p style="margin:6px 0 10px">Así lo resolvemos: ${b.s}. Integramos tus datos, automatizamos notificaciones y paneles de control.</p>`;
+      step1.style.display="none"; step2.style.display="block";
+    }
+
+    function open(){ pop.style.display="block"; }
+    function close(){ pop.style.display="none"; }
+    function showBubble(){ bubble.style.display="block"; }
+    function hideBubble(){ bubble.style.display="none"; }
+
+    function resetIdle(){ clearTimeout(idle); idle=setTimeout(()=>{ showBubble(); open(); }, IDLE_MS); }
+    ["mousemove","keydown","scroll","touchstart"].forEach(e=>document.addEventListener(e,()=>{ hideBubble(); resetIdle(); },{passive:true}));
+    resetIdle();
+
+    avatar.addEventListener("click",()=>{ open(); });
+    bubble.addEventListener("click",()=>{ open(); hideBubble(); });
+    $(".womi-x",pop).addEventListener("click",close);
+    $("#womi-later",pop).addEventListener("click",close);
+    $("#womi-talk",pop).addEventListener("click",()=>handoff());
+    $(".womi-back",pop).addEventListener("click",openStep1);
+    $("#womi-quote",pop).addEventListener("click",()=>quote());
+    $("#womi-ask",pop).addEventListener("click",()=>question());
+
+    async function quote(){
+      const name=prompt("Tu nombre:"); const email=prompt("Tu correo:"); const details=prompt("¿Qué necesitas cotizar?");
+      if(!name||!email) return;
+      try{ await n8nIntegration.sendQuote({name,email,details,source:"idle_gif"}); alert("¡Listo! Te enviamos confirmación al correo."); }catch(e){ alert("No se pudo enviar. Intenta más tarde."); }
+    }
+    async function question(){
+      const name=prompt("Tu nombre:"); const email=prompt("Tu correo:"); const msg=prompt("Escribe tu pregunta:");
+      if(!name||!email) return;
+      try{ await n8nIntegration.sendMsg({name,email,message:msg,source:"idle_gif"}); alert("Gracias, te responderemos muy pronto."); }catch(e){ alert("No se pudo enviar. Intenta más tarde."); }
+    }
+    async function handoff(){
+      const name=prompt("Tu nombre:"); const email=prompt("Tu correo:"); const phone=prompt("Tu WhatsApp o teléfono (opcional):");
+      if(!name||!email) return;
+      try{ await n8nIntegration.handoff({name,email,phone,source:"idle_gif"}); alert("Agendaremos un asesor para contactarte."); }catch(e){ alert("No se pudo enviar. Intenta más tarde."); }
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", mountAssistant);
+})();
