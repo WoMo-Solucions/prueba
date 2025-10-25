@@ -1,1 +1,1 @@
-console.log('i18n')
+document.getElementById('app').innerText='Sitio base listo';
