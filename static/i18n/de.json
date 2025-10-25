@@ -1,1 +1,28 @@
-{}
+{
+  "ui": {
+    "lang": "Sprache ändern:",
+    "cancel": "Abbrechen",
+    "send": "Senden"
+  },
+  "chat": {
+    "subtitle": "Wobei kann ich helfen?",
+    "quote": "Angebot anfordern",
+    "info": "Informationen anfordern",
+    "send": "Senden"
+  },
+  "quote": {
+    "title": "Angebot anfordern"
+  },
+  "info": {
+    "title": "Informationen anfordern"
+  },
+  "idle": {
+    "bubble": "Brauchen Sie Hilfe bei der Prozessoptimierung?",
+    "title": "Welches Problem müssen Sie lösen?",
+    "later": "Nicht jetzt, danke",
+    "talk": "Mit Berater sprechen",
+    "back": "Zurück",
+    "quote": "Ich möchte ein Angebot",
+    "ask": "Eine Frage stellen"
+  }
+}
