@@ -1,0 +1,1 @@
+window.WS=window.WS||{};WS.modal=(function(){let c=null;function open(id){close();var el=document.getElementById(id);if(!el)return;c=el;el.hidden=false;}function close(){if(!c)return;c.hidden=true;c=null;}document.addEventListener('click',function(e){if(c&&!e.target.closest('.ws-popup')) close();},true);return{open:open,close:close}})();
